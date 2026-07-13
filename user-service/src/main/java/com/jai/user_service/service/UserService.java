@@ -21,14 +21,14 @@ public class UserService {
     }
 
     public UserDto createUser(UserDto user){
-        log.info("Creating user: {}",user);
+
         final User createdUser=mapper.toEntity(user);
         final User saved=repo.save(createdUser);
         return mapper.toDto(saved);
     }
 
     public UserDto getUserById(Long id){
-        log.info("Getting user by id: {}",id);
+
         User reqUser=repo.findById(id)
                 .orElse(null);
         if(reqUser==null) return null;
@@ -36,7 +36,7 @@ public class UserService {
     }
 
     public void updateUser(Long id,UserDto dto){
-        log.info("Updating user with id: {}",id);
+
         User user=repo.findById(id)
                 .orElseThrow(()->new UserNotFoundException("User Not Found"));
         user.setName(dto.getName());
@@ -49,7 +49,7 @@ public class UserService {
     }
 
     public void deleteUser(Long id){
-        log.info("Deleting user with id: {}",id);
+
         User user=repo.findById(id)
                 .orElseThrow(()->new UserNotFoundException("User Not Found"));
         repo.delete(user);
