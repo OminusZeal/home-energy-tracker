@@ -18,7 +18,7 @@ public class ExecutionTimeAspect {
     @Pointcut("execution(* com.jai.user_service.controller.*.*(..))")
     public void controllerMethods() {};
 
-    @Around("controllerMethods")
+    @Around("controllerMethods()")
     public Object measureExecutionTime(ProceedingJoinPoint pjp) throws Throwable{
         long start= System.nanoTime();
 

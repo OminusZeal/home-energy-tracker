@@ -15,13 +15,13 @@ public class LoggingAspect {
     @Pointcut("execution(* com.jai.user_service.service.*.*(..))")
     public void serviceMethods() {};
 
-    @Before("serviceMethods")
+    @Before("serviceMethods()")
     public void logBefore(JoinPoint joinPoint){
         log.info("Called service method: {} with arguments: {}",
                 joinPoint.getSignature().getName(),joinPoint.getArgs());
     }
 
-    @AfterReturning(pointcut = "serviceMethods",returning = "result")
+    @AfterReturning(pointcut = "serviceMethods=()",returning = "result")
     public void logAfterReturning(JoinPoint joinPoint,Object result){
         log.info("Service method: {} returned: {}",
                 joinPoint.getSignature().getName(),result);
