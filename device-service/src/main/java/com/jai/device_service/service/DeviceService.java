@@ -7,6 +7,10 @@ import com.jai.device_service.mapper.DeviceMapper;
 import com.jai.device_service.repository.DeviceRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
+import static java.util.stream.Collectors.toList;
+
 @Service
 public class DeviceService {
 
@@ -39,6 +43,13 @@ public class DeviceService {
         device.setUserId(dto.getUserId());
         final Device updatedDevice=repo.save(device);
         return mapper.toDto(updatedDevice);
+    }
+
+    public List<DeviceDto> getAllDevicesByUserId(Long userId) {
+        List<Device> devices = repo.findAllByUserId(userId);
+        return devices.stream()
+                .map(mapper::toDto)
+                .toList();
     }
 
     public void deleteDevice(Long id){
