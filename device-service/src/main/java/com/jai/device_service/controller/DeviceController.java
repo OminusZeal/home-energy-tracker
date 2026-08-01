@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/device")
 public class DeviceController {
@@ -27,6 +29,13 @@ public class DeviceController {
     public ResponseEntity<DeviceDto> createDevice(@RequestBody DeviceDto deviceDto){
         DeviceDto dto=service.createDevice(deviceDto);
         return new ResponseEntity<>(dto, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<List<DeviceDto>> getAllDevicesByUserId(
+            @PathVariable Long userId) {
+        List<DeviceDto> devices = service.getAllDevicesByUserId(userId);
+        return ResponseEntity.ok(devices);
     }
 
     @PutMapping("/{id}")
